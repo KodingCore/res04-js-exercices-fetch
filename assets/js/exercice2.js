@@ -32,6 +32,32 @@ window.addEventListener("DOMContentLoaded", function(){
             
     });
 
+    url = "https://jsonplaceholder.typicode.com/posts?userId=1";
+
+    fetch(url)
+
+        .then(function(response) {
+            return response.json();
+        })
+
+        .then(function(result) {
+            console.log(result);
+            
+            const bodyNode = document.getElementsByTagName("body")[0];
+            result.forEach(element => {
+                const newArticleNode = document.createElement("article");
+                bodyNode.appendChild(newArticleNode);
+
+                const titleArticleNode = document.createElement("h2");
+                newArticleNode.appendChild(titleArticleNode);
+                titleArticleNode.textContent = element.title;
+
+                const bodyArticleNode = document.createElement("p");
+                newArticleNode.appendChild(bodyArticleNode);
+                bodyArticleNode.textContent = element.body;
+
+            });
+        });
 
 })
 
