@@ -1,12 +1,16 @@
 window.addEventListener("DOMContentLoaded", function(){
 
-    let url = "https://jsonplaceholder.typicode.com/users/1"
+    const bodyNode = document.querySelector("body");
+
+    let url = "https://jsonplaceholder.typicode.com/users/1";
+
     fetch(url)
         .then(function(response) {
             return response.json();
         })
         .then(function(user) {
-            url = "https://jsonplaceholder.typicode.com/albums"
+            url = "https://jsonplaceholder.typicode.com/albums";
+
             fetch(url)
                 .then(function(response) {
                     return response.json();
@@ -16,6 +20,22 @@ window.addEventListener("DOMContentLoaded", function(){
                         if(album.userId === user.id){
                             console.log(album.title + " pour l'id " + user.id);
                             url = "https://jsonplaceholder.typicode.com/photos";
+
+                            fetch(url)
+                                .then(function(response){
+                                    return response.json();
+                                })
+                                .then(function(photos){
+                                    
+                                    photos.forEach(photo => {
+                                        console.log(album);
+                                        if(photo.albumId === album.id){
+                                            const imageNode = document.createElement("img");
+                                            imageNode.setAttribute("src", photo.thumbnailUrl);
+                                            bodyNode.appendChild(imageNode);
+                                        }
+                                    });
+                                })
                         }
                     });
                 });
